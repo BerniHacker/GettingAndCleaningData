@@ -1,0 +1,104 @@
+---
+title: "README"
+author: "Bernardo Di Chiara"
+date: "February 17, 2018"
+output:
+  html_document:
+    toc: yes
+    toc_depth: 3
+---
+
+## About Input Data
+
+This repository contains data related to experiments about human activity recognition using smartphones dataset. Those experiments have been carried out by the University of Genova and are described in [1].
+
+The experiments have been carried out with a group of 30 volunteers (subjects). Each subject performed 6 activities (WALKING, WALKING_UPSTAIRS, WALKING_DOWNSTAIRS, SITTING, STANDING, LAYING) wearing a smartphone (Samsung Galaxy S II) on the waist. Using its embedded accelerometer and gyroscope, 3-axial linear acceleration and 3-axial angular velocity have been captured. Alltogether 561 features have been obtained for each record. The obtained dataset has been randomly partitioned into two sets, where 70% of the volunteers was selected for generating the training data and 30% for the test data. 
+
+The original data is available at: 
+
+http://archive.ics.uci.edu/ml/datasets/Human+Activity+Recognition+Using+Smartphones
+
+[1] Davide Anguita, Alessandro Ghio, Luca Oneto, Xavier Parra and Jorge L. Reyes-Ortiz. Human Activity Recognition on Smartphones using a Multiclass Hardware-Friendly Support Vector Machine. International Workshop of Ambient Assisted Living (IWAAL 2012). Vitoria-Gasteiz, Spain. Dec 2012
+
+## About Data Manipulation
+
+The original data has been cleaned and manipulated as described below:
+
+- Training sets and test sets have been merged
+- The measurements related to mean and standard deviation have been extracted and stored in a new dataset
+- Data has been cleaned by using descriptive activity names for the values of the activity variable
+- Data has been cleaned by using descriptive variable names
+- One more data set has been created containing the average of each measurement variable for each subject and each activity
+
+## Files Description
+
+This repository contains the following files and folders:
+
+<ul>
+<li>`README.RMD` (this file)</li>
+<li>`UCI HAR Dataset` (folder)</li>
+<ul>
+<li>This folder contains the original files and its content is described in the next section</li>
+</ul>
+<li>`averages.text`</li>
+<ul>
+<li>`averages` has 180 rows and 81 columns. The first column contains the ID of the volunteer. The second column contains the activity. The remaining columns (3:81) are the measurements. Each row represents the average of each measurement variable (columns 3:81) for a certain subject and a certain activity.</li>
+</ul>
+<li>`run_analysis.R`</li>
+<ul>
+<li>The R script that has been used to produce the  text file `averages.text` by starting from the original text files</li>
+</ul>
+<li>`Code_Book.RMD`</li>
+<ul>
+<li>A description of the detailed process used to obtain the  new data frame `averages.text` and a descriptions of the variables contained in those two data sets</li>
+</ul>
+
+## Original Files
+
+**Human Activity Recognition Using Smartphones Dataset
+Version 1.0**
+
+*Jorge L. Reyes-Ortiz, Davide Anguita, Alessandro Ghio, Luca Oneto.
+Smartlab - Non Linear Complex Systems Laboratory
+DITEN - Università degli Studi di Genova.
+Via Opera Pia 11A, I-16145, Genoa, Italy.
+activityrecognition@smartlab.ws
+www.smartlab.ws*
+
+The original dataset includes the following files:
+
+<ul>
+<li>`README.txt` (which contains more details about the experiments)</li>
+<li>`features_info.txt`</li>
+<ul>
+<li>Shows information about the variables used on the feature vector</li>
+</ul>
+<li>`features.txt`</li>
+<ul>
+<li>Lists of all features</li>
+</ul>
+<li>`activity_labels.txt`</li>
+<ul>
+<li>Links the class labels with their activity name</li>
+</ul>
+<li>`train/X_train.txt`</li>
+<ul>
+<li>Training set</li>
+</ul>
+<li>`train/y_train.txt`</li>
+<ul>
+<li>Training labels</li>
+</ul>
+<li>`test/X_test.txt`</li>
+<ul>
+<li>Test set</li>
+</ul>
+<li>`test/y_test.txt`</li>
+<ul>
+<li>Test labels</li>
+</ul>
+<li>`train/subject_train.txt` and `test/subject_test.txt`</li>
+<ul>
+<li>Each row identifies the subject who performed the activity for each window sample. Its range is from 1 to 30</li>
+</ul>
+</ul>

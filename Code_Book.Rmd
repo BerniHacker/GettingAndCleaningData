@@ -1,0 +1,207 @@
+---
+title: "CodeBook"
+author: "Bernardo Di Chiara"
+date: "February 17, 2018"
+output:
+  html_document:
+    toc: yes
+    toc_depth: 3
+---
+
+## Introduction
+
+This file describes the modifications done to the original files of the experiment about human activity recognition using smartphones dataset, which has been carried out by the University of Genova [1].
+
+The experiments have been carried out with a group of 30 volunteers (subjects). Each person performed 6 activities (WALKING, WALKING_UPSTAIRS, WALKING_DOWNSTAIRS, SITTING, STANDING, LAYING) wearing a smartphone (Samsung Galaxy S II) on the waist. Using its embedded accelerometer and gyroscope, 3-axial linear acceleration and 3-axial angular velocity have been captured. Alltogether 561 features have been obtained for each record. The obtained dataset has been randomly partitioned into two sets, where 70% of the volunteers was selected for generating the training data and 30% for the test data. 
+
+The original data is available at: 
+
+http://archive.ics.uci.edu/ml/datasets/Human+Activity+Recognition+Using+Smartphones
+
+[1] Davide Anguita, Alessandro Ghio, Luca Oneto, Xavier Parra and Jorge L. Reyes-Ortiz. Human Activity Recognition on Smartphones using a Multiclass Hardware-Friendly Support Vector Machine. International Workshop of Ambient Assisted Living (IWAAL 2012). Vitoria-Gasteiz, Spain. Dec 2012
+
+## Original Variables
+
+The original variables are described in the files `features.txt`,`features_info.txt`, `activity_labels.txt`
+
+## Modifications
+
+### Input Files
+
+The following original dataframes have been used.
+
+- `subject_test` and `subject_train` dataframes contain observations with the IDs of the 30 volunteers. subject_test has 2947 rows (observations) and 1 column. subject_train has 7352 rows and 1 column.
+
+- `y_test` and `y_train` dataframes contain the activity of each observation coded as numbers between 1 and 6. y_test has 2947 rows and 1 column. y_train has 7352 rows and 1 column.
+
+- The meaning of these 6 numbers is contained in the `activity_labels` dataframe, which is a dataframe with 6 rows and 2 columns. The variables in the 2 columns are the number corresponding to the activity and the activity label.
+
+- `X_test` and `X_train` are dataframes in which rows are observations and every column is a measurement (there are 561 measurements). X_test has 2947 rows and X_train has 7352 rows.
+
+- The names of these measurements are in the `features` dataframe, which has 561 rows and 2 columns.
+
+### Merging Training and Test Data Sets
+
+`subject_test` and `subject_train` have been merged by adding the rows together. The same has been done with `y_test` and `y_train` and once again with `X_test` and `X_train`. The result has been 3 new dataframes each having a total of 10299 rows (observations).
+
+Those 3 dataframes have been merged by adding the columns together and the result has been a dataframe with 10299 rows and 563 variables. Those variables are the subject ID, the activity and the 561 measurements.
+
+### Extracting the Measurements on the Mean and Standard Deviation
+
+Out of the 561 measurements, 79 are related to mean or standard deviation. The dataframe `mean_std_measurements` contains only those 79 measurements, in addition to the subject ID and the activity.
+
+`mean_std_measurements` has 10299 rows and 81 columns.
+
+### Using Descriptive Names for the Activities
+
+The values of the second variable of the dataframe `mean_std_measurements` have been changed with the corresponding activity names by using the data contained in the dataframe `activity_labels`, as shown below:
+
+- 1 WALKING
+- 2 WALKING_UPSTAIRS
+- 3 WALKING_DOWNSTAIRS
+- 4 SITTING
+- 5 STANDING
+- 6 LAYING
+
+### Labelling the Data set with Descriptive Variable Names
+
+The first variable of the data frame `mean_std_measurements` which contains the subject ID has been renamed "Volunteer_ID". The second variable which contains the activity has been renamed "Activity".
+
+On the remaning variable names (the measurements), the following modifications have been done:
+
+- The parenthesis "()" have been removed
+- The "-" character has been changed with the "." character
+- Whenever "Body" was repeated twice, the second instance has been removed
+- "Mag" has been changed into "Magn"
+- "Acc" has been changed into "Accel"
+- The character "." has been added after  "Body" and "Gravity" and before "Jerk", "Freq" and "Magn"
+- "mean" has been changed into"Mean"
+- "std" has been changed into "StD"
+
+### Creating a New Tidy Data Set with the Average of Each Measurement for Each Subject and Each Activity
+
+A new dataframe called `averages` has been created by aggregating the data contained in `mean_std_measurements`.
+
+`averages` has 81 columns which have the same meaning as the dataframe `mean_std_measurements` and 180 rows.
+
+Each row contains the average of each measurement variable for a certain subject and a certain activity.
+
+## New Dataframe
+
+`averages` has 180 rows and 81 columns. Each row represents the average of each measurement variable (columns 3:81) for a certain subject and a certain activity. The meaning of the columns is described below.
+
+## New Variables
+
+### List
+
+- [1] "Volunteer.ID"
+- [2] "Activity"
+- [3] "tBody.Accel.Mean.X"
+- [4] "tBody.Accel.Mean.Y"
+- [5] "tBody.Accel.Mean.Z"
+- [6] "tBody.Accel.StD.X"
+- [7] "tBody.Accel.StD.Y"
+- [8] "tBody.Accel.StD.Z"
+- [9] "tGravity.Accel.Mean.X"
+- [10] "tGravity.Accel.Mean.Y"
+- [11] "tGravity.Accel.Mean.Z"
+- [12] "tGravity.Accel.StD.X"
+- [13] "tGravity.Accel.StD.Y"
+- [14] "tGravity.Accel.StD.Z"
+- [15] "tBody.Accel.Jerk.Mean.X"
+- [16] "tBody.Accel.Jerk.Mean.Y"
+- [17] "tBody.Accel.Jerk.Mean.Z"
+- [18] "tBody.Accel.Jerk.StD.X"
+- [19] "tBody.Accel.Jerk.StD.Y"
+- [20] "tBody.Accel.Jerk.StD.Z"
+- [21] "tBody.Gyro.Mean.X"
+- [22] "tBody.Gyro.Mean.Y"
+- [23] "tBody.Gyro.Mean.Z"
+- [24] "tBody.Gyro.StD.X"
+- [25] "tBody.Gyro.StD.Y"
+- [26] "tBody.Gyro.StD.Z"
+- [27] "tBody.Gyro.Jerk.Mean.X"
+- [28] "tBody.Gyro.Jerk.Mean.Y"
+- [29] "tBody.Gyro.Jerk.Mean.Z"
+- [30] "tBody.Gyro.Jerk.StD.X"
+- [31] "tBody.Gyro.Jerk.StD.Y"
+- [32]"tBody.Gyro.Jerk.StD.Z"
+- [33] "tBody.Accel.Magn.Mean"
+- [34] "tBody.Accel.Magn.StD"
+- [35] "tGravity.Accel.Magn.Mean"
+- [36] "tGravity.Accel.Magn.StD"
+- [37] "tBody.Accel.Jerk.Magn.Mean"
+- [38] "tBody.Accel.Jerk.Magn.StD"
+- [39] "tBody.Gyro.Magn.Mean"
+- [40] "tBody.Gyro.Magn.StD"
+- [41] "tBody.Gyro.Jerk.Magn.Mean"
+- [32] "tBody.Gyro.Jerk.Magn.StD"
+- [43] "fBody.Accel.Mean.X"
+- [44] "fBody.Accel.Mean.Y"
+- [45] "fBody.Accel.Mean.Z"
+- [46] "fBody.Accel.StD.X"
+- [47] "fBody.Accel.StD.Y"
+- [48] "fBody.Accel.StD.Z"
+- [49] "fBody.Accel.Mean.Freq.X"
+- [50] "fBody.Accel.Mean.Freq.Y"
+- [51] "fBody.Accel.Mean.Freq.Z"
+- [52] "fBody.Accel.Jerk.Mean.X"
+- [53] "fBody.Accel.Jerk.Mean.Y"
+- [54] "fBody.Accel.Jerk.Mean.Z"
+- [55] "fBody.Accel.Jerk.StD.X"
+- [56] "fBody.Accel.Jerk.StD.Y"
+- [57] "fBody.Accel.Jerk.StD.Z"
+- [58] "fBody.Accel.Jerk.Mean.Freq.X"
+- [59] "fBody.Accel.Jerk.Mean.Freq.Y"
+- [60] "fBody.Accel.Jerk.Mean.Freq.Z"
+- [61] "fBody.Gyro.Mean.X"
+- [62] "fBody.Gyro.Mean.Y"
+- [63] "fBody.Gyro.Mean.Z"
+- [64] "fBody.Gyro.StD.X"
+- [65] "fBody.Gyro.StD.Y"
+- [66] "fBody.Gyro.StD.Z"
+- [67] "fBody.Gyro.Mean.Freq.X"
+- [68] "fBody.Gyro.Mean.Freq.Y"
+- [69] "fBody.Gyro.Mean.Freq.Z"
+- [70] "fBody.Accel.Magn.Mean"
+- [71] "fBody.Accel.Magn.StD"
+- [72] "fBody.Accel.Magn.Mean.Freq"
+- [73] "fBody.Accel.Jerk.Magn.Mean"
+- [74] "fBody.Accel.Jerk.Magn.StD"
+- [75] "fBody.Accel.Jerk.Magn.Mean.Freq"
+- [76] "fBody.Gyro.Magn.Mean"
+- [77] "fBody.Gyro.Magn.StD"
+- [78] "fBody.Gyro.Magn.Mean.Freq"
+- [79] "fBody.Gyro.Jerk.Magn.Mean"
+- [80] "fBody.Gyro.Jerk.Magn.StD"
+- [81] "fBody.Gyro.Jerk.Magn.Mean.Freq"
+
+### Abbreviations
+
+- t: Time domain signal 
+- f: Frequency domain signal
+- Accel: Accelerometer
+- Gyro: Gyroscope
+- Magn: Magnitude of the signal
+- Freq: Frequency
+- StD: Standard Deviation
+
+### Variables Explanation
+
+<ul>
+<li>[1] "Volunteer.ID" contains the ID of the volunteer and can be a number from 1 to 30</li>
+<li>[2] "Activity" describes the activity and can have one of the following values:</li>
+<ul>
+<li>1 WALKING</li>
+<li>2 WALKING_UPSTAIRS</li>
+<li>3 WALKING_DOWNSTAIRS</li>
+<li>4 SITTING</li>
+<li>5 STANDING</li>
+<li>6 LAYING</li>
+</ul>
+<li>[3] : [81]: Those variables are the measurements</li>
+</ul>
+
+## Used Tools
+
+R version 3.4.3 on Windows 10
