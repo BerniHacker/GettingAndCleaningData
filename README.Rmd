@@ -50,7 +50,7 @@ This repository contains the following files and folders:
 </ul>
 <li>`Code_Book.RMD`</li>
 <ul>
-<li>A description of the detailed process used to obtain the  new data frame `averages.text` and a descriptions of the variables contained in those two data sets</li>
+<li>A description of the detailed process used to obtain the  new data frame `averages.text` and a descriptions of the variables contained in this data set</li>
 </ul>
 
 ## Original Files
